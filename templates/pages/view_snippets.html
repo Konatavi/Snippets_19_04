@@ -12,26 +12,37 @@
             <div class="row">
                 <div class="col">
                     <p>На данной страницы будут отображаться все созданные сниппеты.</p>
-                    <p>Пока тут пусто, скоро мы это исправим!</p>
                     <hr>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-10 offset-2">
-
-                    <table border="1">
-                        <thead>Список сниппетов</thead>
-
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">name</th>
+                            <th scope="col">language</th>
+                            <th scope="col">code</th>
+                            <th scope="col">date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
                         {% for snippet in snippets %}
                             <tr>
                                 <td>{{ snippet.id }}</td>
-                                <td>{{ snippet.name }}</td>
+                                <td>
+                                    {{ snippet.name }}
+                                    <a href="/snippets/delete/{{ snippet.id }}/"> <i style="color: red" class="fas fa-trash-alt"></i></a>
+                                    <a href="/snippets/edit/{{ snippet.id }}/"> <i class="fas fa-edit"></i></a>
+                                </td>
                                 <td>{{ snippet.lang }}</td>
                                 <td>{{ snippet.code }}</td>
                                 <td>{{ snippet.creation_date }}</td>
                             </tr>
                         {% endfor %}
+                        </tbody>
                     </table>
                 </div>
             </div>
