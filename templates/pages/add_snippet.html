@@ -13,10 +13,7 @@
                 <div class="col">
                     <form action="/snippets/form/" method="post">
                         {% csrf_token %}
-                        <input type="text" name="name"  placeholder="Название сниппета">
-                        <input type="text" name="lang" placeholder="Язык сниппета">
-                        <textarea cols="96" name="code" rows="10" placeholder="Код сниппета"></textarea>
-{#                        <input type="submit" value="Сохранить">#}
+                        {{ form.as_p }}
                         <button type="submit">Сохранить</button>
                     </form>
                 </div>
