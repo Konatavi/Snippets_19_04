@@ -1,4 +1,11 @@
 {% extends 'base.html' %}
+{% block style %}
+    <style>
+        .red {
+            background-color: red;
+        }
+    </style>
+{% endblock %}
 {% block content %}
     <main role="main" class="mt-3 flex-shrink-0">
         <div class="container">
@@ -11,7 +18,7 @@
 
             <div class="row">
                 <div class="col">
-                    <form action="/snippets/form/" method="post">
+                    <form action="" method="post">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <button type="submit">Сохранить</button>

@@ -18,13 +18,21 @@
             </div>
 
             <div class="row">
-                <div class="col-4 offset-2">
-                    Список сниппетов:
-                    <ol>
+                <div class="col-10 offset-2">
+
+                    <table border="1">
+                        <thead>Список сниппетов</thead>
+
                         {% for snippet in snippets %}
-                            <li>{{ snippet.name }}</li>
+                            <tr>
+                                <td>{{ snippet.id }}</td>
+                                <td>{{ snippet.name }}</td>
+                                <td>{{ snippet.lang }}</td>
+                                <td>{{ snippet.code }}</td>
+                                <td>{{ snippet.creation_date }}</td>
+                            </tr>
                         {% endfor %}
-                    </ol>
+                    </table>
                 </div>
             </div>
         </div>
