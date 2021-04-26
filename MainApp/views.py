@@ -24,3 +24,18 @@ def snippets_page(request):
     context = get_base_context(request, 'Просмотр сниппетов')
     context["snippets"] = snippets
     return render(request, 'pages/view_snippets.html', context)
+
+
+def snippets_form(request):
+    # print("request = ", request)
+    if request.method == "POST":
+        # print("request.POST = ", request.POST)
+        name = request.POST["name"]
+        lang = request.POST["lang"]
+        code = request.POST["code"]
+        snippet = Snippet(name=name, lang=lang, code=code)
+        snippet.save()
+        return redirect('snippets-list')
+
+    # if request.method == "GET":
+    #     request.GET
