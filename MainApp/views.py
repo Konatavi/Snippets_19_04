@@ -1,7 +1,9 @@
 from django.http import Http404
 from django.shortcuts import render, redirect
+from django.contrib import auth
 from MainApp.models import Snippet
 from MainApp.forms import SnippetForm
+from django.contrib.auth.decorators import login_required
 
 
 def get_base_context(request, pagename):
@@ -15,6 +17,7 @@ def index_page(request):
     return render(request, 'pages/index.html', context)
 
 
+@login_required
 def add_snippet_page(request):
     if request.method == "GET":
         context = get_base_context(request, 'Добавление нового сниппета')
@@ -24,7 +27,9 @@ def add_snippet_page(request):
     if request.method == "POST":
         form = SnippetForm(request.POST)
         if form.is_valid():
-            form.save()
+            snippet = form.save(commit=False)
+            snippet.user = request.user
+            snippet.save()
         return redirect('snippets-list')
 
 
@@ -55,21 +60,22 @@ def snippets_edit(request, id):
             form.save()
             return redirect('snippets-list')
 
-# def snippets_form(request):
-# print("request = ", request)
-# if request.method == "POST":
-# # print("request.POST = ", request.POST)
-# name = request.POST["name"]
-# lang = request.POST["lang"]
-# code = request.POST["code"]
-# snippet = Snippet(name=name, lang=lang, code=code)
-# snippet.save()
-# form = SnippetForm(request.POST)
-# if form.is_valid():
-#     form.save()
-# else:
-#     ...
-# return redirect('snippets-list')
 
-# if request.method == "GET":
-#     request.GET
+def login_page(request):
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = auth.authenticate(request, username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+        else:
+            # Return error message
+            pass
+    return redirect('home')
+        # print("username =", username)
+        # print("password =", password)
+
+
+def logout_page(request):
+    auth.logout(request)
+    return redirect('home')

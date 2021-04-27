@@ -1,5 +1,6 @@
 from django.db import models
 import datetime
+from django.contrib.auth.models import User
 
 LANG_CHOICE = [
     ('py', 'python'),
@@ -14,3 +15,5 @@ class Snippet(models.Model):
     code = models.TextField(max_length=5000)
     creation_date = models.DateTimeField(default=datetime.datetime.now)
     # visible = models.BooleanField(default=True)
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE,
+                             blank=True, null=True)

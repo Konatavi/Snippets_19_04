@@ -26,6 +26,7 @@
                             <th scope="col">language</th>
                             <th scope="col">code</th>
                             <th scope="col">date</th>
+                            <th scope="col">user</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -40,6 +41,7 @@
                                 <td>{{ snippet.lang }}</td>
                                 <td>{{ snippet.code }}</td>
                                 <td>{{ snippet.creation_date }}</td>
+                                <td>{{ snippet.user.username }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
