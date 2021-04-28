@@ -30,6 +30,9 @@
         code {
             font-size: 80%;
         }
+        .errorlist > li{
+            color: red;
+        }
     </style>
     {% block style %}
     {% endblock %}
@@ -37,49 +40,7 @@
 
 <body class="d-flex flex-column h-100">
 
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">
-                <img src="{% static 'images/logo.png' %}" width="32" height="32" alt="">
-                PythonBin
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                    {% if request.user.is_authenticated %}
-                    <li class="form-inline">
-                        <a class="btn btn-outline-secondary" href="{% url 'snippets-add' %}">
-                            Добавить сниппет
-                        </a>
-                    </li>
-                    {% endif %}
-                    <li class="form-inline">
-                        <a class="btn btn-outline-info" href="{% url 'snippets-list' %}">
-                            Посмотреть сниппеты
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            {% if request.user.is_authenticated %}
-                <span style="color: white">Welcome, {{ request.user.username }}</span>
-                <div><a href="{% url 'logout' %}">logout</a> </div>
-            {% else %}
-                <form method="post" action="{% url 'login' %}">{% csrf_token %}
-                    <label for="username">username: </label>
-                    <input name="username" type="text"><br>
-                    <label for="password">password: </label>
-                    <input name="password" type="password">
-                    <button type="submit">login</button>
-                </form>
-            {% endif %}
-        </div>
-    </nav>
-</header>
+{% include 'inc/header.html' %}
 
 <!-- Begin page content -->
 {% block content %}
@@ -93,7 +54,9 @@
 </footer>
 
 <!-- Optional JavaScript -->
-<script src="{% static 'js/bootstrap.min.js' %}" crossorigin="anonymous"/>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" crossorigin="anonymous"      integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" crossorigin="anonymous"       integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"></script>
 </body>
 
 </html>
