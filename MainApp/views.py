@@ -2,7 +2,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from MainApp.models import Snippet
-from MainApp.forms import SnippetForm, UserRegisterForm
+from MainApp.forms import SnippetForm, UserRegisterForm, CommentForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -114,3 +114,14 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('home')
+
+@login_required
+def comment_add(request):
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.author = ...
+            comment.snippet = ...
+            comment.save()
+

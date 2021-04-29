@@ -16,3 +16,12 @@ class Snippet(models.Model):
     creation_date = models.DateTimeField(default=datetime.datetime.now)
     public = models.BooleanField(default=True)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True)
+
+
+# author - поле связывающее комментарий с моделью User
+# snippet - связывает с моделью Snippet
+class Comment(models.Model):
+    text = models.TextField(max_length=500)
+    creation_date = models.DateTimeField(default=datetime.datetime.now)
+    author = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True)
+    snippet = models.ManyToManyField(Snippet)
